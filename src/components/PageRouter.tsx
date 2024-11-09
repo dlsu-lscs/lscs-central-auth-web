@@ -4,8 +4,6 @@ import { LogIn } from "@/pages/LogIn";
 import { Member } from "@/pages/Member";
 import { Members } from "@/pages/Members";
 
-import { useCookies } from "react-cookie";
-
 export const PageRouter = () => {
   return (
     <>

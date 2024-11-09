@@ -9,7 +9,7 @@ import { ToastAction } from "@/components/ui/toast";
 export const GoogleLogIn = () => {
   const [user, setUser] = useState<any>();
   const [, setCurrentUser] = useCookies<string>(["currentUser"]);
-  const [currentToken, setCurrentToken] = useCookies<string>(["currentToken"]);
+  const [, setCurrentToken] = useCookies<string>(["currentToken"]);
 
   const logIn = useGoogleLogin({
     onSuccess: (response) => setUser(response),

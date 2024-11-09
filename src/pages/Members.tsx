@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 
 export const Members = () => {
-  const [currentUser, ,] = useCookies(["currentUser"]);
+  const [, ,] = useCookies(["currentUser"]);
   const [currentToken, ,] = useCookies(["currentToken"]);
 
   //check if there is current token
