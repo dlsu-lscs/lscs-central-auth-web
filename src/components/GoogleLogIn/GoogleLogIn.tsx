@@ -45,6 +45,7 @@ export const GoogleLogIn = () => {
               setCurrentToken("currentToken", user.access_token, { path: "/" });
               setTimeout(() => {
                 console.log("Redirecting to home page");
+                window.location.replace("/");
               }, 200);
             }
           } catch (e) {
