@@ -55,7 +55,7 @@ export const Member = () => {
     <>
       <div className="min-h-screen bg-[#000000] text-white md:px-28 py-8">
         <div className="flex justify-center items-center my-32">
-          <Card className=" bg-[#030711] border-2 border-[#1D283A] rounded-lg px-3 py-3 flex flex-col items-center justify-center">
+          <Card className=" bg-[#030711] border-2 border-[#1D283A] rounded-lg px-3 py-3 flex flex-col items-center">
             <CardHeader>
               <CardTitle className="text-white font-bold text-2xl">
                 Member:
