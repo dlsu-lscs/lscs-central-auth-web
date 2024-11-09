@@ -3,6 +3,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 export const GoogleLogIn = () => {
   const [user, setUser] = useState<any>();
@@ -11,8 +13,13 @@ export const GoogleLogIn = () => {
 
   const logIn = useGoogleLogin({
     onSuccess: (response) => setUser(response),
-    onError: (error) => console.log(error),
+    onError: (error) => {
+      console.log(error);
+      setUser(null);
+    },
   });
+
+  const { toast } = useToast();
 
   useEffect(() => {
     const getGoogleAccount = async () => {
@@ -38,18 +45,37 @@ export const GoogleLogIn = () => {
                 },
               }
             );
-            console.log(response.data.email);
-            if (response.data.success == "Email is an LSCS member") {
+            console.log(response.data);
+            if (response.data.state == "present") {
               console.log(user.access_token);
               setCurrentUser("currentUser", email, { path: "/" });
               setCurrentToken("currentToken", user.access_token, { path: "/" });
-              setTimeout(() => {
-                console.log("Redirecting to home page");
-                window.location.replace("/");
-              }, 200);
+              window.location.reload();
+              window.location.replace("/");
+            } else if (response.data.state == "absent") {
+              toast({
+                variant: "destructive",
+                title: "bossing d ka member ng lscs",
+                description: "sino ka ba hahahaah",
+                action: (
+                  <ToastAction altText="Try again">
+                    try mo ulet hehehe
+                  </ToastAction>
+                ),
+              });
             }
           } catch (e) {
             console.log(e);
+            toast({
+              variant: "destructive",
+              title: "bossing d ka member ng lscs",
+              description: "sino ka ba hahahaah",
+              action: (
+                <ToastAction altText="Try again">
+                  try mo ulet hehehe
+                </ToastAction>
+              ),
+            });
           }
         };
         checkEmail(response.data.email);
@@ -67,7 +93,10 @@ export const GoogleLogIn = () => {
       <Button
         variant="outline"
         className="flex justify-center items-center hover:brightness-50"
-        onClick={logIn}
+        onClick={() => {
+          setUser(null);
+          logIn();
+        }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
